@@ -23,7 +23,9 @@ public class Edges {
         computeTime();
 
     }
-
+    public String toString(){
+        return "Edges" + " " + _num + " " + _name + " " + _time;
+    }
     private void computeTime(){
         int diff = _fromVertex.get_altitude() - _toVertex.get_altitude();
         if (diff < 0){
