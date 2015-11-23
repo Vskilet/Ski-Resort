@@ -23,6 +23,10 @@ public class Edges {
         computeTime();
 
     }
+    public int get_num() { return  _num; }
+    public float get_time() { return _time; }
+    public Vertex get_toVertex() { return _toVertex; }
+    public Vertex get_fromVertex() { return _fromVertex; }
     public String toString(){
         return "Edges" + " " + _num + " " + _name + " " + _time;
     }

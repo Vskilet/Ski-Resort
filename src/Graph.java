@@ -10,8 +10,8 @@ import java.util.Stack;
  */
 public class Graph {
     private String _name;
-    private List<Edges> _edges;
-    private List<Vertex> _vertex;
+    public List<Edges> _edges;
+    public List<Vertex> _vertex;
 
     public Graph(){
         _edges = new ArrayList<Edges>();
@@ -60,23 +60,42 @@ public class Graph {
     }
 
     public Stack<Vertex> shortestPath(Vertex v_start, Vertex v_end){
-        Vertex current = new Vertex();
-        Stack<Vertex> spath = new Stack<Vertex>();
+        Vertex current;
+        Stack<Vertex> shoPath = new Stack<Vertex>();
         List<Vertex> notSee = new LinkedList<Vertex>();
         resetMark();
         v_start.set_distance(0);
+        notSee.add(v_start);
 
-        //Choose the min element
-        while (notSee.isEmpty()) {
-            current = notSee.remove(0);
+        while (!notSee.isEmpty()) {
+            current = notSee.get(0);
+            //Choose the min element
             for (Vertex v : notSee) {
                 if (current.greaterThan(v)) {
                     current = v;
                 }
             }
+            current.set_mark(true);
+            for (Edges e : current.get_leaveEdges()){
+                if (!e.get_toVertex().get_mark()){
+                    if (e.get_toVertex().get_distance() == -1f || e.get_toVertex().get_distance() > e.get_fromVertex().get_distance() + e.get_time()){
+                        e.get_toVertex().set_distance(e.get_fromVertex().get_distance() + e.get_time());
+                        e.get_toVertex().set_preVertex(e.get_fromVertex());
+                    }
+                    if (notSee.contains(e.get_toVertex())){
+                        notSee.remove(e.get_toVertex());
+                    }
+                    notSee.add(e.get_toVertex());
+                }
+            }
+            notSee.remove(current);
         }
-        current.set_mark(true);
-        return spath;
+        current = v_end;
+        while (current.get_preVertex() != null){
+            shoPath.add(current);
+            current = current.get_preVertex();
+        }
+        return shoPath;
 
     }
 
