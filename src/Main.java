@@ -4,6 +4,6 @@ public class Main {
         System.out.println("Bienvenu");
         Graph graph = new Graph();
         graph.readFile("dataski.txt");
-
+        System.out.println(graph);
     }
 }
