@@ -1,16 +1,22 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by victor on 13/11/15.
  */
 public class Graph {
-    public String _name;
-    public List<Edges> _edges;
-    public List<Vertex> _vertex;
+    private String _name;
+    private List<Edges> _edges;
+    private List<Vertex> _vertex;
 
-    public Graph(){};
+    public Graph(){
+        _edges = new ArrayList<Edges>();
+        _vertex = new ArrayList<Vertex>();
+    };
 
     public void readFile(String fileName){
         int nb;
@@ -36,5 +42,42 @@ public class Graph {
         }
     }
 
+    public String toString() {
+        String out = new String(_vertex.size() + " vertices :\n");
+        for (Vertex v : _vertex)
+            out += "  - " + v.toString() + "\n";
+        out += _edges.size() + " edges :\n";
+        for (Edges e : _edges)
+            out += "  - " + e.toString() + "\n";
+        return out;
+    }
+    public void resetMark(){
+       for (Vertex v : _vertex){
+           v.set_mark(false);
+           v.set_preVertex(null);
+           v.set_distance(-1f);
+       }
+    }
+
+    public Stack<Vertex> shortestPath(Vertex v_start, Vertex v_end){
+        Vertex current = new Vertex();
+        Stack<Vertex> spath = new Stack<Vertex>();
+        List<Vertex> notSee = new LinkedList<Vertex>();
+        resetMark();
+        v_start.set_distance(0);
+
+        //Choose the min element
+        while (notSee.isEmpty()) {
+            current = notSee.remove(0);
+            for (Vertex v : notSee) {
+                if (current.greaterThan(v)) {
+                    current = v;
+                }
+            }
+        }
+        current.set_mark(true);
+        return spath;
+
+    }
 
 }
