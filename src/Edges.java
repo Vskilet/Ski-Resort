@@ -30,17 +30,17 @@ public class Edges {
             diff = -diff;
         }
         switch (this._type){
-            case TK : _time = 1 + diff * 4/100; break;
-            case TS : _time = 1 + diff * 4/100; break;
-            case TSD : _time = 1 + diff * 3/100; break;
-            case TPH : _time = 4 + diff * 2/100; break;
-            case TC : _time = 2 + diff * 3/100; break;
-            case V : _time = diff * 5/100; break;
-            case B : _time = diff * 4/100; break;
-            case R : _time = diff * 3/100; break;
-            case N : _time = diff * 2/100; break;
-            case KL : _time = diff * (10/60)/100; break;
-            case SURF : _time = diff * 10/100; break;
+            case TK : _time = 1 + 1f * diff * 4/100; break;
+            case TS : _time = 1 + 1f * diff * 4/100; break;
+            case TSD : _time = 1 + 1f * diff * 3/100; break;
+            case TPH : _time = 4 + 1f * diff * 2/100; break;
+            case TC : _time = 2 + 1f * diff * 3/100; break;
+            case V : _time = 1f * diff * 5/100; break;
+            case B : _time = 1f * diff * 4/100; break;
+            case R : _time = 1f * diff * 3/100; break;
+            case N : _time = 1f * diff * 2/100; break;
+            case KL : _time = 1f * diff * (10/60)/100; break;
+            case SURF : _time = 1f * diff * 10/100; break;
             case BUS :{
                 if (this._name.contains("2000")){
                     _time = 40;
