@@ -27,6 +27,8 @@ public class Edges {
     public float get_time() { return _time; }
     public Vertex get_toVertex() { return _toVertex; }
     public Vertex get_fromVertex() { return _fromVertex; }
+    public RoadType get_type() { return  _type; }
+    @Override
     public String toString(){
         return "Edges" + " " + _num + " " + _name + " " + _time;
     }

@@ -59,7 +59,7 @@ public class Graph {
        }
     }
 
-    public Stack<Vertex> shortestPath(Vertex v_start, Vertex v_end){
+    public Stack<Vertex> shortestPath(Vertex v_start, Vertex v_end, Resort r_choice){
         Vertex current;
         Stack<Vertex> shoPath = new Stack<Vertex>();
         List<Vertex> notSee = new LinkedList<Vertex>();
@@ -77,7 +77,7 @@ public class Graph {
             }
             current.set_mark(true);
             for (Edges e : current.get_leaveEdges()){
-                if (!e.get_toVertex().get_mark()){
+                if (!e.get_toVertex().get_mark() && r_choice.isValid(e)){
                     if (e.get_toVertex().get_distance() == -1f || e.get_toVertex().get_distance() > e.get_fromVertex().get_distance() + e.get_time()){
                         e.get_toVertex().set_distance(e.get_fromVertex().get_distance() + e.get_time());
                         e.get_toVertex().set_preVertex(e.get_fromVertex());
@@ -95,6 +95,7 @@ public class Graph {
             shoPath.add(current);
             current = current.get_preVertex();
         }
+        shoPath.add(v_start);
         return shoPath;
 
     }

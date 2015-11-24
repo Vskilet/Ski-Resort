@@ -47,6 +47,7 @@ public class Vertex {
         _comeEdges.add(e);
     }
 
+    @Override
     public String toString(){
         return "Vertex" + " " + _num + " " + _name + " " + _altitude;
     }
