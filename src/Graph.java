@@ -1,3 +1,5 @@
+import edu.uci.ics.jung.graph.DirectedSparseGraph;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -98,6 +100,31 @@ public class Graph {
         shoPath.add(v_start);
         return shoPath;
 
+    }
+
+    public ArrayList<Vertex> dfs(Vertex v_start, Resort r_choice){
+        r_choice.add(RoadType.TS);
+        r_choice.add(RoadType.TC);
+        r_choice.add(RoadType.TK);
+        r_choice.add(RoadType.TPH);
+        r_choice.add(RoadType.TSD);
+
+        ArrayList<Vertex> listOut = new ArrayList<Vertex>();
+        Stack<Vertex> listVertex = new Stack<Vertex>();
+        listVertex.add(v_start);
+        while (!listVertex.isEmpty()){
+            v_start = listVertex.pop();
+            if (!listOut.contains(v_start)){
+                listOut.add(v_start);
+                for (Edges e : v_start.get_leaveEdges()){
+                    if (r_choice.contains(e.get_type())){
+                        listVertex.add(e.get_toVertex());
+                   }
+                }
+            }
+        }
+
+        return listOut;
     }
 
 }

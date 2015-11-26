@@ -10,17 +10,27 @@ public class Main {
         //System.out.println(graph);
         Resort lvl = new Resort();
         lvl.add(RoadType.R);
-        //lvl.add(RoadType.N);
+        lvl.add(RoadType.N);
         lvl.add(RoadType.V);
         lvl.add(RoadType.B);
-        //lvl.add(RoadType.SURF);
-        //lvl.add(RoadType.KL);
+        lvl.add(RoadType.SURF);
+        lvl.add(RoadType.KL);
+
+
         Stack<Vertex> st = graph.shortestPath(graph._vertex.get(0), graph._vertex.get(5), lvl);
+        System.out.println("ShortestPath");
         for (int i=0; i < st.size(); i++){
             Vertex v = st.get(i);
             System.out.println(v);
         }
-
+        ArrayList<Vertex> test = graph.dfs(graph._vertex.get(7), lvl);
+        System.out.println(test.size());
+        System.out.println("DFS");
+        for (int i=0; i < test.size(); i++){
+            System.out.println(test.get(i));
+        }
+        DrawableGraph frame = new DrawableGraph(graph, st);
+        frame.drawGraph();
 
     }
 }
