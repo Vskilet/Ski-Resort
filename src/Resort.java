@@ -5,6 +5,13 @@ import java.util.ArrayList;
  */
 public class Resort extends ArrayList<RoadType>{
 
+    public Resort(){
+        this.add(RoadType.TS);
+        this.add(RoadType.TC);
+        this.add(RoadType.TK);
+        this.add(RoadType.TPH);
+        this.add(RoadType.TSD);
+    }
     public boolean isValid(Edges e){
         if (this.contains(e.get_type())){
             return true;
