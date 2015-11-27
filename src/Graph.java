@@ -102,6 +102,19 @@ public class Graph {
 
     }
 
+    public Stack<Vertex> shortestPath(String start, String end, Resort r_choice){
+        Vertex v_start = null;
+        Vertex v_end = null;
+        for (Vertex v : _vertex){
+            if (v.get_name().equals(start)){
+                v_start  = v;
+            }
+            if (v.get_name().equals(end)){
+                v_end = v;
+            }
+        }
+        return shortestPath(v_start, v_end, r_choice);
+    }
     public ArrayList<Vertex> dfs(Vertex v_start, Resort r_choice){
         r_choice.add(RoadType.TS);
         r_choice.add(RoadType.TC);
@@ -123,8 +136,17 @@ public class Graph {
                 }
             }
         }
-
         return listOut;
     }
+    public ArrayList<Vertex> dfs(String start, Resort r_choice){
+        Vertex v_start = null;
+        for (Vertex v : _vertex){
+            if (v.get_name().equals(start)){
+                v_start  = v;
+            }
+        }
+        return dfs(v_start, r_choice);
+    }
+
 
 }
