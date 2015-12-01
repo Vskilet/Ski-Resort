@@ -1,6 +1,8 @@
+import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.visualization.VisualizationImageServer;
+import edu.uci.ics.jung.visualization.layout.CachingLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +21,10 @@ public class DrawableGraph extends JFrame implements ActionListener {
     private DirectedSparseMultigraph<Vertex, Edges> _directedGraph;
     private DirectedSparseMultigraph<Vertex, Edges> _directedShortestPath;
     private ArrayList<Vertex> _dfs;
+
+    private JPanel p_dfs;
+    private JPanel p_short;
+    private JPanel p_screen;
 
     private JCheckBox chB;
     private JCheckBox chV;
@@ -47,6 +53,11 @@ public class DrawableGraph extends JFrame implements ActionListener {
         this._directedShortestPath = new DirectedSparseMultigraph<Vertex, Edges>();
         this._dfs = new ArrayList<Vertex>();
 
+        this.p_dfs = new JPanel();
+        this.p_short = new JPanel();
+
+        this.p_screen = new JPanel();
+
         this.button = new JButton("Shortest Path");
         button.addActionListener(this);
         this.b_dfs = new JButton("DFS");
@@ -69,11 +80,11 @@ public class DrawableGraph extends JFrame implements ActionListener {
         this.box1 = new JComboBox(elements);
         this.box2 = new JComboBox(elements);
         this.box_dfs = new JComboBox(elements);
-        this.label1 = new JLabel();
+        this.label1 = new JLabel("Label");
         this.vs = new VisualizationImageServer(new FRLayout(this._directedGraph), new Dimension(450, 450));
         this.vs2 = new VisualizationImageServer(new FRLayout(this._directedShortestPath), new Dimension(600, 600));
 
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(100, 100);
         this.setVisible(true);
@@ -85,8 +96,26 @@ public class DrawableGraph extends JFrame implements ActionListener {
         this.getContentPane().removeAll();
 
         //this.getContentPane().add(vv);
+        p_short.add(chB);
+        p_short.add(chV);
+        p_short.add(chR);
+        p_short.add(chN);
+        p_short.add(chSURF);
 
-        this.getContentPane().add(chB);
+        p_short.add(box1);
+        p_short.add(box2);
+        p_short.add(button);
+
+        this.getContentPane().add(p_short, BorderLayout.NORTH);
+
+        p_dfs.add(box_dfs);
+        p_dfs.add(b_dfs);
+        this.getContentPane().add(p_dfs, BorderLayout.SOUTH);
+
+        p_screen.add(label1);
+        this.getContentPane().add(p_screen, BorderLayout.EAST);
+
+        /*this.getContentPane().add(chB);
         this.getContentPane().add(chV);
         this.getContentPane().add(chR);
         this.getContentPane().add(chN);
@@ -99,11 +128,12 @@ public class DrawableGraph extends JFrame implements ActionListener {
         this.getContentPane().add(box_dfs);
         this.getContentPane().add(b_dfs);
 
-        this.getContentPane().add(label1);
+        this.getContentPane().add(label1);*/
 
         //VisualizationImageServer vs = new VisualizationImageServer(new FRLayout(this._directedGraph), new Dimension(500, 500));
         //this.getContentPane().add(visualizationServer);
-        this.getContentPane().add(vs);
+        this.getContentPane().add(vs, BorderLayout.CENTER);
+        //this.getContentPane().add(vs2, BorderLayout.WEST);
         //this.getContentPane().add(vs2);
 
         //this.vs.repaint();
@@ -123,6 +153,7 @@ public class DrawableGraph extends JFrame implements ActionListener {
         for (Vertex v : _shortestPath) {
             _directedShortestPath.addVertex(v);
         }
+
     }
 
     @Override
